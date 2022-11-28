@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FilmovaDB.Model
 {
-    public class MovieModel {}
+    public class ActorModel {}
 
-    public class Movie
+    public class Actor
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Year { get; set; }
-        public List<Actor> Actors { get; set; }
-        public List<Director> Directors { get; set; }
+        public string Surname { get; set; }
+        public int Age { get; set; }
     }
 }
