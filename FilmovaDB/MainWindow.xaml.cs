@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FilmovaDB.Model;
+using FilmovaDB.Repository;
+using LiteDB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +25,14 @@ namespace FilmovaDB
     {
         public MainWindow()
         {
+            var movieService = new MovieService();
+            movieService.Insert(new Movie { Name = "Matrix" });
+            movieService.Insert(new Movie { Name = "John Wick" });
+
+            var results = movieService.GetMovieRepoSearch("i");
+            var anotherResults = movieService.GetMovieRepoSearch("rix");
             InitializeComponent();
+            
         }
     }
 }
