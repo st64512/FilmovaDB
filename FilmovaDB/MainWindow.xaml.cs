@@ -27,29 +27,24 @@ namespace FilmovaDB
         public MainWindow()
         {
             var movieService = new MovieService();
-            movieService.Insert(new Movie { Name = "Matrix" });
             /*
             var x = movieService.GetAll();
             x.Wait();
             */
 
-            var m = new Movie { Name = "John Wick" };
+            var actorService = new ActorService();
+            Actor a = new Actor { Name = "Pepa" };
+            Actor b = new Actor { Name = "Ema" };
+            actorService.Insert(a);
+            actorService.Insert(b);
 
-            movieService.Insert(m);
+            List<Actor> actors = new List<Actor> { a, b };
 
-            var results = movieService.GetBySearch("i");
-            var anotherResults = movieService.GetBySearch("rix");
+            movieService.Insert(new Movie { Name = "Honba za pokladem", Actors = actors });
 
-            m.Name = "PEpa";
+            var results = movieService.GetAll();
 
-            movieService.Update(m);
-
-            results = movieService.GetAll();
-
-            movieService.Delete(1);
-            movieService.Delete(2);
-
-            results = movieService.GetAll();
+            Actor actor = results[0].Actors[0];
 
 
             InitializeComponent();

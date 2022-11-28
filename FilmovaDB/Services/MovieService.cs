@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace FilmovaDB.Repository
 {
@@ -13,12 +14,20 @@ namespace FilmovaDB.Repository
         private const string _path = @".\movies.db";
         private const string dataCollectionName = "movies";
 
+        public MovieService() 
+        {
+            BsonMapper.Global.Entity<Movie>().DbRef(x => x.Actors, "actors");
+            BsonMapper.Global.Entity<Movie>().DbRef(x => x.Directors, "directors");
+        }
         public List<Movie> GetAll()
         {
             using var db = new LiteDatabase(_path);
 
             var col = db.GetCollection<Movie>(dataCollectionName);
-            var movies = col.Query().ToList();
+            var movies = col.Query()
+                .Include(x => x.Actors)
+                .Include(x => x.Directors)
+                .ToList();
             return movies;
         }
 
@@ -26,7 +35,10 @@ namespace FilmovaDB.Repository
         {
             using var db = new LiteDatabase(_path);
             var col = db.GetCollection<Movie>(dataCollectionName);
-            return col.FindById(id);
+            return col
+                .Include(x => x.Actors)
+                .Include(x => x.Directors)
+                .FindById(id);
         }
 
         public List<Movie> GetBySearch(string searchQuery)
@@ -34,7 +46,10 @@ namespace FilmovaDB.Repository
             using var db = new LiteDatabase(_path);
 
             var col = db.GetCollection<Movie>(dataCollectionName);
-            var movies = col.Find(Query.Contains("Name", searchQuery)).ToList();
+            var movies = col
+                .Include(x => x.Actors)
+                .Include(x => x.Directors)
+                .Find(Query.Contains("Name", searchQuery)).ToList();
             return movies;
         }
 
