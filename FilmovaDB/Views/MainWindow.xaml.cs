@@ -25,12 +25,9 @@ namespace FilmovaDB
     {
         public MainWindow()
         {
-            var movieService = new MovieRepository();
-            /*
-            var x = movieService.GetAll();
-            x.Wait();
-            */
+            var movieRepository = new MovieRepository();
 
+            /*
             var actorRepository = new ActorRepository();
             Actor a = new Actor { Name = "Pepa" };
             Actor b = new Actor { Name = "Ema" };
@@ -44,9 +41,13 @@ namespace FilmovaDB
             var results = movieService.GetAll();
 
             Actor actor = results[0].Actors[0];
-
+            */
 
             InitializeComponent();
+            FilmovaDB.ViewModel.MainWindowViewModel mainWindowViewModelObject = new ViewModel.MainWindowViewModel(movieRepository);
+            mainWindowViewModelObject.LoadMovies();
+
+            DataContext = mainWindowViewModelObject;
         }
     }
 }
