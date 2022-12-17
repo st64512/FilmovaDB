@@ -9,19 +9,17 @@ using System.Windows.Controls;
 
 namespace FilmovaDB.Repository
 {
-    public class MovieService
+    public class MovieRepository : BaseRepository<Movie>
     {
-        private const string _path = @".\movies.db";
-        private const string dataCollectionName = "movies";
 
-        public MovieService() 
+        public MovieRepository(string dataCollectionName = "movies") : base(dataCollectionName)
         {
             BsonMapper.Global.Entity<Movie>().DbRef(x => x.Actors, "actors");
             BsonMapper.Global.Entity<Movie>().DbRef(x => x.Directors, "directors");
         }
-        public List<Movie> GetAll()
+        new public List<Movie> GetAll()
         {
-            using var db = new LiteDatabase(_path);
+            using var db = new LiteDatabase(path);
 
             var col = db.GetCollection<Movie>(dataCollectionName);
             var movies = col.Query()
@@ -31,9 +29,9 @@ namespace FilmovaDB.Repository
             return movies;
         }
 
-        public Movie GetById(int id) 
+        new public Movie GetById(int id) 
         {
-            using var db = new LiteDatabase(_path);
+            using var db = new LiteDatabase(path);
             var col = db.GetCollection<Movie>(dataCollectionName);
             return col
                 .Include(x => x.Actors)
@@ -41,9 +39,9 @@ namespace FilmovaDB.Repository
                 .FindById(id);
         }
 
-        public List<Movie> GetBySearch(string searchQuery)
+        new public List<Movie> GetBySearch(string searchQuery)
         {
-            using var db = new LiteDatabase(_path);
+            using var db = new LiteDatabase(path);
 
             var col = db.GetCollection<Movie>(dataCollectionName);
             var movies = col
@@ -53,29 +51,8 @@ namespace FilmovaDB.Repository
             return movies;
         }
 
-        public void Insert(Movie movie)
+        public override void EnsureIndex(ILiteCollection<Movie> col)
         {
-            using var db = new LiteDatabase(_path);
-
-            var col = db.GetCollection<Movie>(dataCollectionName);
-            col.Insert(movie);
-            col.EnsureIndex(x => x.Name);
-        }
-
-        public void Delete(int id) 
-        {
-            using var db = new LiteDatabase(_path);
-
-            var col = db.GetCollection<Movie>(dataCollectionName);
-            col.Delete(id);
-        }
-
-        public void Update(Movie movie)
-        {
-            using var db = new LiteDatabase(_path);
-
-            var col = db.GetCollection<Movie>(dataCollectionName);
-            col.Update(movie);
             col.EnsureIndex(x => x.Name);
         }
     }

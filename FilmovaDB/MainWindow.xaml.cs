@@ -1,6 +1,5 @@
 ﻿using FilmovaDB.Model;
 using FilmovaDB.Repository;
-using FilmovaDB.Services;
 using LiteDB;
 using System;
 using System.Collections.Generic;
@@ -26,17 +25,17 @@ namespace FilmovaDB
     {
         public MainWindow()
         {
-            var movieService = new MovieService();
+            var movieService = new MovieRepository();
             /*
             var x = movieService.GetAll();
             x.Wait();
             */
 
-            var actorService = new ActorService();
+            var actorRepository = new ActorRepository();
             Actor a = new Actor { Name = "Pepa" };
             Actor b = new Actor { Name = "Ema" };
-            actorService.Insert(a);
-            actorService.Insert(b);
+            actorRepository.Insert(a);
+            actorRepository.Insert(b);
 
             List<Actor> actors = new List<Actor> { a, b };
 
