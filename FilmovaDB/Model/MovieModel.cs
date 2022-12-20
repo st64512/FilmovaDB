@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FilmovaDB.MovieEnums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace FilmovaDB.Model
         public int Year { get; set; }
         public List<Actor> Actors { get; set; }
         public List<Director> Directors { get; set; }
+        public List<Genre> Genres { get; set; }
     }
 }

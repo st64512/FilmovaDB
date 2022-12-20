@@ -5,15 +5,51 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FilmovaDB.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="800">
-    <Grid>
-        <Label Content="Název:" HorizontalAlignment="Left" Margin="27,30,0,0" VerticalAlignment="Top" Width="145"/>
-        <Label Content="Rok premiéry:" HorizontalAlignment="Left" Margin="27,61,0,0" VerticalAlignment="Top" Width="145"/>
-        <Label Content="Herci:" HorizontalAlignment="Left" Margin="27,92,0,0" VerticalAlignment="Top" Width="145"/>
-        <Label Content="Režiséři:" HorizontalAlignment="Left" Margin="27,123,0,0" VerticalAlignment="Top" Width="145"/>
-        <Label Content="Žánry:" HorizontalAlignment="Left" Margin="27,154,0,0" VerticalAlignment="Top" Width="145"/>
-        <TextBox HorizontalAlignment="Left" Margin="177,30,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="223" Height="26"/>
-        <TextBox HorizontalAlignment="Left" Margin="177,61,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="223" Height="26"/>
+             d:DesignHeight="300" d:DesignWidth="800" x:Name="movieDetail">
+    <Grid DataContext="{Binding ElementName=movieDetail, Path=DataContext}">
+        <Label Content="Název:" HorizontalAlignment="Left" Margin="27,30,0,0" VerticalAlignment="Top" Width="110"/>
+        <Label Content="Rok premiéry:" HorizontalAlignment="Left" Margin="27,61,0,0" VerticalAlignment="Top" Width="110"/>
+        <Label Content="Herci:" HorizontalAlignment="Left" Margin="400,30,0,0" VerticalAlignment="Top" Width="110"/>
+        <Label Content="Režiséři:" HorizontalAlignment="Left" Margin="401,121,0,0" VerticalAlignment="Top" Width="110"/>
+        <Label Content="Žánry:" HorizontalAlignment="Left" Margin="27,92,0,0" VerticalAlignment="Top" Width="110"/>
+        <TextBox Name="movieNameTextBox" Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="142,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" Height="26"/>
+        <TextBox Name="movieYearTextBox" Text="{Binding Path=Year, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="142,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" Height="26"/>
+        <ListView ItemsSource="{Binding Path=Genres, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="144,93,0,0" Width="223" Height="89" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView ItemsSource="{Binding Path=Directors, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="518,121,0,0" Width="223" Height="67" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ListView.Resources>
+                <Style TargetType="{x:Type GridViewColumnHeader}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=FullName}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView ItemsSource="{Binding Path=Actors, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="517,26,0,0" Width="223" Height="90" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ListView.Resources>
+                <Style TargetType="{x:Type GridViewColumnHeader}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=FullName}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </UserControl>
