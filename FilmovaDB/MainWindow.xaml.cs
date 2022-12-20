@@ -44,7 +44,7 @@ namespace FilmovaDB
             */
 
             InitializeComponent();
-            FilmovaDB.ViewModel.MainWindowViewModel mainWindowViewModelObject = new ViewModel.MainWindowViewModel(movieRepository);
+            FilmovaDB.ViewModel.MovieViewModel mainWindowViewModelObject = new ViewModel.MovieViewModel(movieRepository);
             mainWindowViewModelObject.LoadMovies();
 
             DataContext = mainWindowViewModelObject;

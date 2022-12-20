@@ -5,22 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FilmovaDB"
         xmlns:models="clr-namespace:FilmovaDB.Model"
+        xmlns:views="clr-namespace:FilmovaDB.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="700" Width="800">
     <Grid>
-        <TextBox Margin="10,15,0,0" Width="409" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Název filmu" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Width="78" HorizontalContentAlignment="Right"/>
+        <TextBox Margin="93,15,0,0" Width="322" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
         <Button Content="Vyhledat" Margin="438,15,186,0" VerticalAlignment="Top" Height="26"/>
         <Button Content="Přidat film" Margin="0,51,10,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Right" Width="162"/>
         <Button Content="Detail" HorizontalAlignment="Right" Margin="0,82,10,0" Width="162" Height="26" VerticalAlignment="Top"/>
         <Button Content="Herci" Margin="0,184,10,0" HorizontalAlignment="Right" Width="162" Height="26" VerticalAlignment="Top"/>
         <Button Content="Režiséři" HorizontalAlignment="Right" Margin="0,217,10,0" Width="162" Height="26" VerticalAlignment="Top"/>
         <Button Content="Žánry" HorizontalAlignment="Right" Margin="0,248,10,0" Width="162" Height="26" VerticalAlignment="Top"/>
-        <DataGrid x:Name="moviesGrid" Margin="10,51,186,10" ItemsSource="{Binding Movies}" AutoGenerateColumns="False">
+        <DataGrid x:Name="moviesGrid" Margin="10,51,186,315" ItemsSource="{Binding Movies}" SelectedItem="{Binding SelectedMovie, Mode=TwoWay}" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="#FFE4E4E4">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="movieIDColumn" Binding="{Binding Id}" Header="ID" Width="30"/>
                 <DataGridTextColumn x:Name="movieNameColumn" Binding="{Binding Name}" Header="Název" Width="433"/>
                 <DataGridTextColumn x:Name="movieYearColumn" Binding="{Binding Year}" Header="Rok premiéry" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
+        <views:MovieView DataContext="{Binding SelectedMovie}" x:Name="MovieDetail" Margin="0,374,10,0" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Width="780"/>
     </Grid>
 </Window>
