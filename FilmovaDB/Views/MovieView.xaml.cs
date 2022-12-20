@@ -34,5 +34,11 @@ namespace FilmovaDB.Views
                 genresListView.Items.Remove(genresListView.SelectedItems[rowIndex]);
             }
         }
+
+        private void OnButtonClick(object sender, RoutedEventArgs e)
+        {
+            var mydata = this.DataContext;
+            var pepa = mydata;
+        }
     }
 }

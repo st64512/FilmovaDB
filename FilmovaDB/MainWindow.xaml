@@ -29,7 +29,7 @@
                 <DataGridTextColumn x:Name="movieYearColumn" Binding="{Binding Year}" Header="Rok premiéry" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
-        <views:MovieView  Margin="5" Grid.Row="2" DataContext="{Binding SelectedMovie}" x:Name="MovieDetail" />
+        <views:MovieView  Margin="5" Grid.Row="2" DataContext="{Binding SelectedMovieVM}" x:Name="MovieDetail" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="left" Margin="5" Grid.Row="3">
             <Button Width="135" Height="25" Margin="5" Content="Připravit nový formulář" Command="{Binding ClearFormCommand}" />
             <Button Width="125" Height="25" Margin="5" Content="Přidat film" Command="{Binding AddCommand}" />

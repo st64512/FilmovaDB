@@ -12,11 +12,12 @@
         <Label Content="Herci:" HorizontalAlignment="Left" Margin="400,30,0,0" VerticalAlignment="Top" Width="110"/>
         <Label Content="Režiséři:" HorizontalAlignment="Left" Margin="401,121,0,0" VerticalAlignment="Top" Width="110"/>
         <Label Content="Žánry:" HorizontalAlignment="Left" Margin="27,92,0,0" VerticalAlignment="Top" Width="110"/>
-        <TextBox Name="movieNameTextBox" Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="142,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" Height="26"/>
-        <TextBox Name="movieYearTextBox" Text="{Binding Path=Year, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="142,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" Height="26"/>
-        <ListView x:Name="genresListView" ItemsSource="{Binding Path=Genres, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="144,93,0,0" Width="223" Height="89" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <TextBox Name="movieNameTextBox" Text="{Binding Path=SMovie.Name, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="142,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" Height="26"/>
+        <TextBox Name="movieYearTextBox" Text="{Binding Path=SMovie.Year, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="142,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" Height="26"/>
+        <Button x:Name="click" Margin="204,188,229,41" Click="OnButtonClick" >Click me To know DataContext</Button>
+        <ListView x:Name="genresListView" SelectedItem="{Binding SelectedGenre}" ItemsSource="{Binding Path=SMovie.Genres, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="144,93,0,0" Width="223" Height="89" VerticalAlignment="Top" HorizontalAlignment="Left">
             <ListView.InputBindings>
-                <KeyBinding Key="Delete" Command="{Binding Path=MyCommand}"></KeyBinding>
+                <KeyBinding Key="Delete" Command="{Binding Path=RemoveGenreCommand}"></KeyBinding>
             </ListView.InputBindings>
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
@@ -29,7 +30,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView ItemsSource="{Binding Path=Directors, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="518,121,0,0" Width="223" Height="67" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <ListView ItemsSource="{Binding Path=SMovie.Directors, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="518,121,0,0" Width="223" Height="67" VerticalAlignment="Top" HorizontalAlignment="Left">
             <ListView.Resources>
                 <Style TargetType="{x:Type GridViewColumnHeader}">
                     <Setter Property="Visibility" Value="Collapsed" />
@@ -41,7 +42,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView ItemsSource="{Binding Path=Actors, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="517,26,0,0" Width="223" Height="90" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <ListView ItemsSource="{Binding Path=SMovie.Actors, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="517,26,0,0" Width="223" Height="90" VerticalAlignment="Top" HorizontalAlignment="Left">
             <ListView.Resources>
                 <Style TargetType="{x:Type GridViewColumnHeader}">
                     <Setter Property="Visibility" Value="Collapsed" />

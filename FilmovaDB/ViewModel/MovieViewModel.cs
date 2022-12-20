@@ -28,26 +28,32 @@ namespace FilmovaDB.ViewModel
 
         public ObservableCollection<Movie> Movies { get; set; } = new ObservableCollection<Movie>();
         
-        private Movie? selectedMovie;
-        public Movie? SelectedMovie { 
-            get => selectedMovie;
-            set
-            {
-                SetProperty(ref selectedMovie, value);
-                RemoveCommand.NotifyCanExecuteChanged();
-                AddCommand.NotifyCanExecuteChanged();
+        private SelectedMovieViewModel selectedMovieVM;
+        public SelectedMovieViewModel SelectedMovieVM 
+        {
+            get => selectedMovieVM;
+            set {
+                selectedMovieVM = value;
             }
         }
-
-        new public event PropertyChangedEventHandler? PropertyChanged;
+        public Movie? SelectedMovie { 
+            get => selectedMovieVM?.SMovie;
+            set
+            {
+                selectedMovieVM.SMovie = value;
+                RemoveCommand.NotifyCanExecuteChanged();
+                AddCommand.NotifyCanExecuteChanged();
+                OnPropertyChanged("SelectedMovieVM");
+            }
+        }
 
         public MovieViewModel(MovieRepository movieRepository)
         {
             this.movieRepository = movieRepository;
             this.genres = Enum.GetValues(typeof(Genre)).Cast<Genre>().ToList();
-
+            this.selectedMovieVM = new SelectedMovieViewModel(null);
             AddCommand = new RelayCommand(DoAdd, () => SelectedMovie?.Id == 0);
-            RemoveCommand = new RelayCommand(DoRemove, () => SelectedMovie != null && SelectedMovie.Id != 0);
+            RemoveCommand = new RelayCommand(DoRemove, () => SelectedMovie != null && SelectedMovie?.Id != 0);
             SaveCommand = new RelayCommand(DoSaveMovie);
             SearchCommand = new RelayCommand<string>(DoSearch);
             ClearFormCommand = new RelayCommand(DoClearForm);
@@ -78,7 +84,7 @@ namespace FilmovaDB.ViewModel
             var collection = CollectionViewSource.GetDefaultView(Movies);
 
             if (!string.IsNullOrWhiteSpace(searchQuery))
-                collection.Filter = (m) => ((Movie)m).Name.ToLower().Contains(searchQuery.ToLower());
+                collection.Filter = (m) => ((Movie)m).Name != null ? ((Movie)m).Name.ToLower().Contains(searchQuery.ToLower()) : false;
             else
                 collection.Filter = null;
         }
@@ -108,7 +114,7 @@ namespace FilmovaDB.ViewModel
                 SelectedMovie.Genres = new List<Genre> { Genre.Western, Genre.Action, Genre.Horror};
                 */
 
-                movieRepository.Insert(selectedMovie);
+                movieRepository.Insert(SelectedMovie);
                 LoadMovies();
             }
         }
