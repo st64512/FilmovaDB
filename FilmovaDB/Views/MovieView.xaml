@@ -14,7 +14,10 @@
         <Label Content="Žánry:" HorizontalAlignment="Left" Margin="27,92,0,0" VerticalAlignment="Top" Width="110"/>
         <TextBox Name="movieNameTextBox" Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="142,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" Height="26"/>
         <TextBox Name="movieYearTextBox" Text="{Binding Path=Year, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="142,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" Height="26"/>
-        <ListView ItemsSource="{Binding Path=Genres, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="144,93,0,0" Width="223" Height="89" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <ListView x:Name="genresListView" ItemsSource="{Binding Path=Genres, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="144,93,0,0" Width="223" Height="89" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ListView.InputBindings>
+                <KeyBinding Key="Delete" Command="{Binding Path=MyCommand}"></KeyBinding>
+            </ListView.InputBindings>
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="Visibility" Value="Collapsed" />
