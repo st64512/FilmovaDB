@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FilmovaDB.Interface;
 using FilmovaDB.Model;
 using FilmovaDB.MovieEnums;
 using FilmovaDB.Repository;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,7 +20,6 @@ namespace FilmovaDB.ViewModel
     public class MovieViewModel : ObservableObject
     {
         private readonly MovieRepository movieRepository;
-        private List<Genre> genres;
 
         public IRelayCommand AddCommand { get; }
         public IRelayCommand RemoveCommand { get; }
@@ -47,11 +48,11 @@ namespace FilmovaDB.ViewModel
             }
         }
 
-        public MovieViewModel(MovieRepository movieRepository)
+        public MovieViewModel(IGenericRepository<Movie> movieRepository)
         {
-            this.movieRepository = movieRepository;
-            this.genres = Enum.GetValues(typeof(Genre)).Cast<Genre>().ToList();
-            this.selectedMovieVM = new SelectedMovieViewModel(null);
+            this.movieRepository = (MovieRepository) movieRepository;
+            this.SelectedMovieVM = App.Current.Services.GetService<SelectedMovieViewModel>();
+
             AddCommand = new RelayCommand(DoAdd, () => SelectedMovie?.Id == 0);
             RemoveCommand = new RelayCommand(DoRemove, () => SelectedMovie != null && SelectedMovie?.Id != 0);
             SaveCommand = new RelayCommand(DoSaveMovie);
@@ -75,6 +76,7 @@ namespace FilmovaDB.ViewModel
             foreach (var movie in Movies)
             {
                 movieRepository.Update(movie);
+                DoClearForm();
             }
             LoadMovies();
         }
@@ -95,6 +97,7 @@ namespace FilmovaDB.ViewModel
                 movieRepository.Delete(SelectedMovie.Id);
                 SelectedMovie = null;
                 LoadMovies();
+                DoClearForm();
             }
         }
 
@@ -102,18 +105,6 @@ namespace FilmovaDB.ViewModel
         {
             if (SelectedMovie != null)
             {
-                /*
-                Actor a = new Actor { Name = "Franta", Surname="Pytlák" };
-                Actor b = new Actor { Name = "Majda", Surname = "Vdolečka" };
-
-                var ac = new ActorRepository();
-                ac.Insert(a);
-                ac.Insert(b);
-                SelectedMovie.Actors = new List<Actor> { a, b };
-
-                SelectedMovie.Genres = new List<Genre> { Genre.Western, Genre.Action, Genre.Horror};
-                */
-
                 movieRepository.Insert(SelectedMovie);
                 LoadMovies();
             }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FilmovaDB.Interface
 {
-    internal interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<T> where T : class
     {
         List<T> GetAll();
         T GetById(int id);

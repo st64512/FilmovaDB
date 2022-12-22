@@ -24,21 +24,5 @@ namespace FilmovaDB.Views
         {
             InitializeComponent();
         }
-
-        private void Genres_ListView_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Delete) return;
-
-            for (var rowIndex = 0; rowIndex < genresListView.SelectedItems.Count; rowIndex++)
-            {
-                genresListView.Items.Remove(genresListView.SelectedItems[rowIndex]);
-            }
-        }
-
-        private void OnButtonClick(object sender, RoutedEventArgs e)
-        {
-            var mydata = this.DataContext;
-            var pepa = mydata;
-        }
     }
 }

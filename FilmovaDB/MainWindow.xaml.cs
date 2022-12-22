@@ -1,6 +1,8 @@
 ﻿using FilmovaDB.Model;
 using FilmovaDB.Repository;
+using FilmovaDB.ViewModel;
 using LiteDB;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,10 +46,7 @@ namespace FilmovaDB
             */
 
             InitializeComponent();
-            FilmovaDB.ViewModel.MovieViewModel mainWindowViewModelObject = new ViewModel.MovieViewModel(movieRepository);
-            mainWindowViewModelObject.LoadMovies();
-
-            DataContext = mainWindowViewModelObject;
+            DataContext = App.Current.Services.GetService<MovieViewModel>();
         }
     }
 }
