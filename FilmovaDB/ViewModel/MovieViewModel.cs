@@ -4,6 +4,7 @@ using FilmovaDB.Interface;
 using FilmovaDB.Model;
 using FilmovaDB.MovieEnums;
 using FilmovaDB.Repository;
+using FilmovaDB.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace FilmovaDB.ViewModel
         public IRelayCommand SaveCommand { get; }
         public IRelayCommand<string> SearchCommand { get; }
         public IRelayCommand ClearFormCommand { get; }
+        public IRelayCommand OpenActorViewCommand { get; }
 
         public ObservableCollection<Movie> Movies { get; set; } = new ObservableCollection<Movie>();
         
@@ -58,6 +60,8 @@ namespace FilmovaDB.ViewModel
             SaveCommand = new RelayCommand(DoSaveMovie);
             SearchCommand = new RelayCommand<string>(DoSearch);
             ClearFormCommand = new RelayCommand(DoClearForm);
+
+            OpenActorViewCommand = new RelayCommand(DoOpenActorView);
 
             LoadMovies();
         }
@@ -113,6 +117,12 @@ namespace FilmovaDB.ViewModel
         private void DoClearForm()
         {
             SelectedMovie = new Movie();
+        }
+
+        private void DoOpenActorView() 
+        {
+            ActorView  actorViewWindow = new ActorView();
+            actorViewWindow.ShowDialog();
         }
     }
 }

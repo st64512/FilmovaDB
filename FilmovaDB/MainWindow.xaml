@@ -16,10 +16,12 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <Label Content="Název filmu" VerticalAlignment="Center" Margin="5"/>
+            <Label Content="Název filmu:" VerticalAlignment="Center" Margin="5"/>
             <TextBox x:Name="searchText" VerticalAlignment="Center" Margin="5,3" Width="250" Height="25" VerticalContentAlignment="Center"/>
-            <Button Content="Vyhledat" Width="75" Height="25" Margin="10,5" VerticalAlignment="Center" 
+            <Button Content="Vyhledat" Width="75" Height="25" Margin="10,5,125,5" VerticalAlignment="Center" 
                     Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=searchText,Path=Text}"/>
+            <Button Content="Herci"  Margin="10,5" Width="95" Height="24" Command="{Binding OpenActorViewCommand}"/>
+            <Button Content="Režiséři"  Margin="10,5" Width="95" Height="24" Command="{Binding OpenActorViewCommand}"/>
         </StackPanel>
         
         <DataGrid x:Name="moviesGrid" ItemsSource="{Binding Movies}" SelectedItem="{Binding SelectedMovie}" AutoGenerateColumns="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserAddRows="False" AlternatingRowBackground="#FFE4E4E4" Grid.Row="1">
