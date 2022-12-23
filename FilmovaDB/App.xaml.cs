@@ -39,6 +39,8 @@ namespace FilmovaDB
 
             services.AddTransient<SelectedMovieViewModel>();
             services.AddTransient<MovieViewModel>();
+            services.AddTransient<ActorViewModel>();
+            services.AddTransient<DirectorViewModel>();
 
             return services.BuildServiceProvider();
         }

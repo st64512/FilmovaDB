@@ -1,9 +1,4 @@
-﻿using FilmovaDB.Model;
-using FilmovaDB.Repository;
-using FilmovaDB.ViewModel;
-using LiteDB;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FilmovaDB
+namespace FilmovaDB.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interakční logika pro DirectorView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DirectorView : UserControl
     {
-        public MainWindow()
+        public DirectorView()
         {
             InitializeComponent();
-            DataContext = App.Current.Services.GetService<MovieViewModel>();
         }
     }
 }

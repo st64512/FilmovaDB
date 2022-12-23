@@ -27,7 +27,8 @@ namespace FilmovaDB.ViewModel
         public IRelayCommand SaveCommand { get; }
         public IRelayCommand<string> SearchCommand { get; }
         public IRelayCommand ClearFormCommand { get; }
-        public IRelayCommand OpenActorViewCommand { get; }
+        public IRelayCommand OpenActorDialogCommand { get; }
+        public IRelayCommand OpenDirectorDialogCommand { get; }
 
         public ObservableCollection<Movie> Movies { get; set; } = new ObservableCollection<Movie>();
         
@@ -61,7 +62,8 @@ namespace FilmovaDB.ViewModel
             SearchCommand = new RelayCommand<string>(DoSearch);
             ClearFormCommand = new RelayCommand(DoClearForm);
 
-            OpenActorViewCommand = new RelayCommand(DoOpenActorView);
+            OpenActorDialogCommand = new RelayCommand(DoOpenActorDialog);
+            OpenDirectorDialogCommand = new RelayCommand(DoOpenDirectorDialog);
 
             LoadMovies();
         }
@@ -119,10 +121,18 @@ namespace FilmovaDB.ViewModel
             SelectedMovie = new Movie();
         }
 
-        private void DoOpenActorView() 
+        private void DoOpenActorDialog() 
         {
             ActorView  actorViewWindow = new ActorView();
             actorViewWindow.ShowDialog();
+            this.SelectedMovieVM.ReloadActors();
+        }
+
+        private void DoOpenDirectorDialog()
+        {
+            DirectorDialog directorDialog = new DirectorDialog();
+            directorDialog.ShowDialog();
+            this.SelectedMovieVM.ReloadDirectors();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FilmovaDB.ViewModel;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,7 @@ namespace FilmovaDB.Views
         public ActorView()
         {
             InitializeComponent();
+            DataContext = App.Current.Services.GetService<ActorViewModel>();
         }
     }
 }

@@ -4,6 +4,7 @@ using FilmovaDB.Interface;
 using FilmovaDB.Model;
 using FilmovaDB.MovieEnums;
 using FilmovaDB.Repository;
+using FilmovaDB.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -81,7 +82,7 @@ namespace FilmovaDB.ViewModel
             OnPropertyChanged("OtherGenres");
         }
 
-        private void ReloadActors()
+        public void ReloadActors()
         {
 
             if (SMovie.Actors != null)
@@ -96,12 +97,12 @@ namespace FilmovaDB.ViewModel
         {
             var allActorsList = actorRepository.GetAll();
             var casc = this.Actors.ToList();
-            var diffActorsList = allActorsList.Except(this.Actors.ToList());
+            var diffActorsList = Utility<Actor>.utilityExcept(allActorsList, this.Actors.ToList());
             this.OtherActors = new ObservableCollection<Actor>(diffActorsList);
             OnPropertyChanged("OtherActors");
         }
 
-        private void ReloadDirectors()
+        public void ReloadDirectors()
         {
             if (SMovie.Directors != null)
             {
@@ -115,7 +116,7 @@ namespace FilmovaDB.ViewModel
         private void ReloadOtherDirectors()
         {
             var allDirectorsList = directorRepository.GetAll();
-            var diffDirectorsList = allDirectorsList.Except(this.Directors.ToList());
+            var diffDirectorsList = Utility<Director>.utilityExcept(allDirectorsList, this.Directors.ToList());
             this.OtherDirectors = new ObservableCollection<Director>(diffDirectorsList);
             OnPropertyChanged("OtherDirectors");
         }
@@ -146,7 +147,7 @@ namespace FilmovaDB.ViewModel
 
         private void DoAddActor(Actor actor)
         {
-            if (SMovie != null) {
+            if (actor != null && SMovie != null) {
                 SMovie.Actors.Add((Actor)actor);
             }
             ReloadActors();
@@ -163,7 +164,7 @@ namespace FilmovaDB.ViewModel
 
         private void DoAddDirector(Director director)
         {
-            if (SMovie != null)
+            if (director != null && SMovie != null)
             {
                 SMovie.Directors.Add((Director)director);
             }

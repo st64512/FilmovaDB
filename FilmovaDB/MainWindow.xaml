@@ -20,8 +20,8 @@
             <TextBox x:Name="searchText" VerticalAlignment="Center" Margin="5,3" Width="250" Height="25" VerticalContentAlignment="Center"/>
             <Button Content="Vyhledat" Width="75" Height="25" Margin="10,5,125,5" VerticalAlignment="Center" 
                     Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=searchText,Path=Text}"/>
-            <Button Content="Herci"  Margin="10,5" Width="95" Height="24" Command="{Binding OpenActorViewCommand}"/>
-            <Button Content="Režiséři"  Margin="10,5" Width="95" Height="24" Command="{Binding OpenActorViewCommand}"/>
+            <Button Content="Herci"  Margin="10,5" Width="95" Height="24" Command="{Binding OpenActorDialogCommand}"/>
+            <Button Content="Režiséři"  Margin="10,5" Width="95" Height="24" Command="{Binding OpenDirectorDialogCommand}"/>
         </StackPanel>
         
         <DataGrid x:Name="moviesGrid" ItemsSource="{Binding Movies}" SelectedItem="{Binding SelectedMovie}" AutoGenerateColumns="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserAddRows="False" AlternatingRowBackground="#FFE4E4E4" Grid.Row="1">
@@ -31,9 +31,9 @@
                 <DataGridTextColumn x:Name="movieYearColumn" Binding="{Binding Year}" Header="Rok premiéry" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
-        <views:MovieView  Margin="5" Grid.Row="2" DataContext="{Binding SelectedMovieVM, Mode=TwoWay}" x:Name="MovieDetail" />
+        <views:MovieView Margin="5" Grid.Row="2" DataContext="{Binding SelectedMovieVM, Mode=TwoWay}" x:Name="MovieDetail" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="left" Margin="5" Grid.Row="3">
-            <Button Width="135" Height="25" Margin="5" Content="Připravit nový formulář" Command="{Binding ClearFormCommand}" />
+            <Button Width="135" Height="25" Margin="5" Content="Nový formulář" Command="{Binding ClearFormCommand}" />
             <Button Width="125" Height="25" Margin="5" Content="Přidat film" Command="{Binding AddCommand}" />
             <Button Width="125" Height="25" Margin="5" Content="Smazat" Command="{Binding RemoveCommand}" />
         </StackPanel>

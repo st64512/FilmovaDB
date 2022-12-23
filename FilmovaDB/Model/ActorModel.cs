@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
@@ -9,11 +11,34 @@ namespace FilmovaDB.Model
 {
     public class ActorModel {}
 
-    public class Actor : IEquatable<Actor>
+    public class Actor : ObservableObject
     {
+        private string name;
+        private string surname;
+
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        public string Name {
+            get => name;
+            set {
+                if (name != value)
+                {
+                    SetProperty(ref name, value);
+                    OnPropertyChanged("FullName");
+                }
+            }
+        }
+        public string Surname
+        {
+            get => surname;
+            set
+            {
+                if (surname != value)
+                {
+                    SetProperty(ref surname, value);
+                    OnPropertyChanged("FullName");
+                }
+            }
+        }
         public int Age { get; set; }
 
         public string FullName
@@ -33,7 +58,5 @@ namespace FilmovaDB.Model
         }
 
         public override bool Equals(object obj) => Equals(obj as Actor);
-        public override int GetHashCode() => (Name, Surname).GetHashCode();
-
     }
 }
