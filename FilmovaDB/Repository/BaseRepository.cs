@@ -49,7 +49,13 @@ namespace FilmovaDB.Repository
             using var db = new LiteDatabase(path);
 
             var col = db.GetCollection<T>(dataCollectionName);
-            col.Insert(entity);
+            try {
+                col.Insert(entity);
+            } catch (LiteException)
+            {
+
+            }
+            
             this.EnsureIndex(col);
         }
 
